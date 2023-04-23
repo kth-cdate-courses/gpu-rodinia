@@ -49,7 +49,7 @@ main(	int argc,
 		char *argv [])
 {
 
-	printf("thread block size of kernel = %d \n", NUMBER_THREADS);
+	//printf("thread block size of kernel = %d \n", NUMBER_THREADS);
 	//======================================================================================================================================================150
 	//	CPU/MCPU VARIABLES
 	//======================================================================================================================================================150
@@ -124,7 +124,7 @@ main(	int argc,
 	}
 
 	// Print configuration
-	printf("Configuration used: boxes1d = %d\n", dim_cpu.boxes1d_arg);
+	//printf("Configuration used: boxes1d = %d\n", dim_cpu.boxes1d_arg);
 
 	time2 = get_time();
 

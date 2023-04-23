@@ -111,13 +111,14 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 
 #ifdef GPU
  
-  printf("Performing GPU computation\n");
+  //printf("Performing GPU computation\n");
   
   //printf("in= %d, hid = %d, numblocks = %d\n", in, hid, num_blocks);
   
   cudaMemcpy(input_cuda, net->input_units, (in + 1) * sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(input_hidden_cuda, input_weights_one_dim, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyHostToDevice);
 
+  double start = gettime();
   
   
   bpnn_layerforward_CUDA<<< grid, threads >>>(input_cuda,
@@ -176,6 +177,9 @@ void bpnn_train_cuda(BPNN *net, float *eo, float *eh)
 												input_hidden_cuda, 
 												input_prev_weights_cuda
 												);
+
+  double stop = gettime();
+  printf("%.12f\n", (stop - start) * 1000);
 
   cudaMemcpy(net->input_units, input_cuda, (in + 1) * sizeof(float), cudaMemcpyDeviceToHost);
   cudaMemcpy(input_weights_one_dim, input_hidden_cuda, (in + 1) * (hid + 1) * sizeof(float), cudaMemcpyDeviceToHost);

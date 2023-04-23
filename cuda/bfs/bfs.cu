@@ -83,7 +83,7 @@ void BFSGraph( int argc, char** argv)
 	}
 
 	input_f = argv[1];
-	printf("Reading File\n");
+	// printf("Reading File\n");
 	//Read in Graph from a file
 	fp = fopen(input_f,"r");
 	if(!fp)
@@ -147,7 +147,7 @@ void BFSGraph( int argc, char** argv)
 	if(fp)
 		fclose(fp);    
 
-	printf("Read File\n");
+	//printf("Read File\n");
 
 #ifdef  TIMING
     gettimeofday(&tv_total_start, NULL);
@@ -196,14 +196,14 @@ void BFSGraph( int argc, char** argv)
     h2d_time = tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 #endif
 
-	printf("Copied Everything to GPU memory\n");
+	//printf("Copied Everything to GPU memory\n");
 
 	// setup execution parameters
 	dim3  grid( num_of_blocks, 1, 1);
 	dim3  threads( num_of_threads_per_block, 1, 1);
 
 	int k=0;
-	printf("Start traversing the tree\n");
+	//printf("Start traversing the tree\n");
 	bool stop;
 	//Call the Kernel untill all the elements of Frontier are not false
 	do
@@ -245,7 +245,7 @@ void BFSGraph( int argc, char** argv)
 	while(stop);
 
 
-	printf("Kernel Executed %d times\n",k);
+	//printf("Kernel Executed %d times\n",k);
 
 	// copy result from device to host
 #ifdef  TIMING
@@ -263,7 +263,7 @@ void BFSGraph( int argc, char** argv)
 	for(int i=0;i<no_of_nodes;i++)
 		fprintf(fpo,"%d) cost:%d\n",i,h_cost[i]);
 	fclose(fpo);
-	printf("Result stored in result.txt\n");
+	//printf("Result stored in result.txt\n");
 
 
 	// cleanup memory
@@ -290,12 +290,12 @@ void BFSGraph( int argc, char** argv)
 	tvsub(&tv_close_end, &tv_total_start, &tv);
 	total_time = tv.tv_sec * 1000.0 + (float) tv.tv_usec / 1000.0;
 
-	printf("Init: %f\n", init_time);
-	printf("MemAlloc: %f\n", mem_alloc_time);
-	printf("HtoD: %f\n", h2d_time);
-	printf("Exec: %f\n", kernel_time);
-	printf("DtoH: %f\n", d2h_time);
-	printf("Close: %f\n", close_time);
-	printf("Total: %f\n", total_time);
+	//printf("Init: %f\n", init_time);
+	//printf("MemAlloc: %f\n", mem_alloc_time);
+	//printf("HtoD: %f\n", h2d_time);
+	printf("%f\n", kernel_time);
+	//printf("DtoH: %f\n", d2h_time);
+	//printf("Close: %f\n", close_time);
+	//printf("Total: %f\n", total_time);
 #endif
 }

@@ -69,7 +69,7 @@ int
 main( int argc, char** argv) 
 {
 
-  printf("WG size of kernel = %d \n", BLOCK_SIZE);
+  	//printf("WG size of kernel = %d \n", BLOCK_SIZE);
 
     runTest( argc, argv);
 
@@ -129,7 +129,7 @@ void runTest( int argc, char** argv)
 		}
 	}
 	
-	printf("Start Needleman-Wunsch\n");
+	//printf("Start Needleman-Wunsch\n");
 	
 	for( int i=1; i< max_rows ; i++){    //please define your own sequence. 
        input_itemsets[i*max_cols] = rand() % 10 + 1;
@@ -166,7 +166,7 @@ void runTest( int argc, char** argv)
   gettimeofday(&tv_kernel_start, NULL);
 #endif
 
-	printf("Processing top-left matrix\n");
+	//printf("Processing top-left matrix\n");
 	//process top-left matrix
 	for( int i = 1 ; i <= block_width ; i++){
 		dimGrid.x = i;
@@ -174,7 +174,7 @@ void runTest( int argc, char** argv)
 		needle_cuda_shared_1<<<dimGrid, dimBlock>>>(referrence_cuda, matrix_cuda
 		                                      ,max_cols, penalty, i, block_width); 
 	}
-	printf("Processing bottom-right matrix\n");
+	//printf("Processing bottom-right matrix\n");
     //process bottom-right matrix
 	for( int i = block_width - 1  ; i >= 1 ; i--){
 		dimGrid.x = i;
@@ -260,7 +260,7 @@ void runTest( int argc, char** argv)
 	free(output_itemsets);
 
 #ifdef  TIMING
-    printf("Exec: %f\n", kernel_time);
+    printf("%f\n", kernel_time);
 #endif
 }
 

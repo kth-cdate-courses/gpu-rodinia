@@ -67,7 +67,7 @@ float init_time = 0, mem_alloc_time = 0, h2d_time = 0, kernel_time = 0,
 int
 main ( int argc, char *argv[] )
 {
-  printf("WG size of kernel = %d X %d\n", BLOCK_SIZE, BLOCK_SIZE);
+  //printf("WG size of kernel = %d X %d\n", BLOCK_SIZE, BLOCK_SIZE);
 
   int matrix_dim = 32; /* default matrix_dim */
   int opt, option_index=0;
@@ -87,7 +87,7 @@ main ( int argc, char *argv[] )
       break;
     case 's':
       matrix_dim = atoi(optarg);
-      printf("Generate input matrix internally, size =%d\n", matrix_dim);
+      //printf("Generate input matrix internally, size =%d\n", matrix_dim);
       // fprintf(stderr, "Currently not supported, use -i instead\n");
       // fprintf(stderr, "Usage: %s [-v] [-s matrix_size|-i input_file]\n", argv[0]);
       // exit(EXIT_FAILURE);
@@ -111,7 +111,7 @@ main ( int argc, char *argv[] )
   }
 
   if (input_file) {
-    printf("Reading matrix from file %s\n", input_file);
+    //printf("Reading matrix from file %s\n", input_file);
     ret = create_matrix_from_file(&m, input_file, &matrix_dim);
     if (ret != RET_SUCCESS) {
       m = NULL;
@@ -120,7 +120,7 @@ main ( int argc, char *argv[] )
     }
   } 
   else if (matrix_dim) {
-    printf("Creating matrix internally size=%d\n", matrix_dim);
+    //printf("Creating matrix internally size=%d\n", matrix_dim);
     ret = create_matrix(&m, matrix_dim);
     if (ret != RET_SUCCESS) {
       m = NULL;
@@ -136,7 +136,7 @@ main ( int argc, char *argv[] )
   }
 
   if (do_verify){
-    printf("Before LUD\n");
+    //printf("Before LUD\n");
     // print_matrix(m, matrix_dim);
     matrix_duplicate(m, &mm, matrix_dim);
   }
@@ -166,23 +166,22 @@ main ( int argc, char *argv[] )
 
   /* end of timing point */
   stopwatch_stop(&sw);
-  printf("Time consumed(ms): %lf\n", 1000*get_interval_by_sec(&sw));
+  //printf("Time consumed(ms): %lf\n", 1000*get_interval_by_sec(&sw));
 
   cudaFree(d_m);
 
 
   if (do_verify){
-    printf("After LUD\n");
+    //printf("After LUD\n");
     // print_matrix(m, matrix_dim);
-    printf(">>>Verify<<<<\n");
+    // printf(">>>Verify<<<<\n");
     lud_verify(mm, m, matrix_dim); 
     free(mm);
   }
-
   free(m);
 
 #ifdef  TIMING
-  printf("Exec: %f\n", kernel_time);
+  printf("%f\n", kernel_time);
 #endif
 
   return EXIT_SUCCESS;

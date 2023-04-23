@@ -21,7 +21,7 @@ ifeq ($(emu),1)
 endif
 
 
-backprop: backprop.o facetrain.o imagenet.o backprop_cuda.o 
+backprop: backprop.o facetrain.o imagenet.o backprop_cuda.o
 	$(CC) $(CC_FLAGS) backprop.o facetrain.o imagenet.o backprop_cuda.o -o backprop -L$(CUDA_LIB_DIR) -lcuda -lcudart -lm
 
 %.o: %.[ch]
@@ -38,7 +38,6 @@ backprop_cuda.o: backprop_cuda.cu backprop.h
 
 imagenet.o: imagenet.c backprop.h
 	$(CC) $(CC_FLAGS) imagenet.c -c
-
 
 clean:
 	rm -f *.o *~ backprop backprop_cuda.linkinfo
