@@ -17,7 +17,7 @@
  ************************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <string>
 #include <math.h>
 #include <cuda.h>
 
@@ -74,18 +74,21 @@ fprintf(stderr,"Usage: %s <input_file>\n", argv[0]);
 //Apply BFS on a Graph using CUDA
 ////////////////////////////////////////////////////////////////////////////////
 void BFSGraph( int argc, char** argv) 
-{
-
-    char *input_f;
+{	
+	//char *input_f;
 	if(argc!=2){
 	Usage(argc, argv);
 	exit(0);
 	}
+	
+	//Edited
+	int size = std::stoi(argv[1]);
+    std::string in = "../../data/bfs/graph" + std::to_string(size) + ".txt";
 
-	input_f = argv[1];
+	//input_f = argv[1];
 	// printf("Reading File\n");
 	//Read in Graph from a file
-	fp = fopen(input_f,"r");
+	fp = fopen(in.c_str(),"r");
 	if(!fp)
 	{
 		printf("Error Reading graph file\n");
