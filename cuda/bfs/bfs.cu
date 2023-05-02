@@ -83,7 +83,7 @@ void BFSGraph( int argc, char** argv)
 	
 	//Edited
 	int size = std::stoi(argv[1]);
-    std::string in = "../../data/bfs/graph" + std::to_string(size) + ".txt";
+    std::string in = "projects/gpu-rodinia/data/bfs/graph" + std::to_string(size) + ".txt";
 
 	//input_f = argv[1];
 	// printf("Reading File\n");
